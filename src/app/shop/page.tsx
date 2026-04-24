@@ -3,50 +3,56 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { Heart } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 import './shop.css';
 
 const shopCategories = ['All', 'Sauces', 'Spices', 'Merch', 'Gift Cards'];
 
 const products = [
   {
-    id: 1,
+    id: 101,
     category: 'Sauces',
     name: 'Signature Truffle Oil',
     desc: 'Infused with white Alba truffles',
-    price: '$45.00',
+    price: 45.00,
+    priceLabel: '$45.00',
     image: '/images/truffle-oil.png',
     btnLabel: 'ADD TO CART',
   },
   {
-    id: 2,
+    id: 102,
     category: 'Spices',
     name: 'Artisan Spice Blend',
     desc: 'Smoked paprika, sumac & wild herbs',
-    price: '$28.00',
+    price: 28.00,
+    priceLabel: '$28.00',
     image: '/images/spice-blend.png',
     btnLabel: 'ADD TO CART',
   },
   {
-    id: 3,
+    id: 103,
     category: 'Merch',
     name: 'Culinique Apron',
     desc: 'Heavy linen with leather accents',
-    price: '$85.00',
+    price: 85.00,
+    priceLabel: '$85.00',
     image: '/images/apron.png',
     btnLabel: 'ADD TO CART',
   },
   {
-    id: 4,
+    id: 104,
     category: 'Gift Cards',
     name: 'Digital Gift Card',
     desc: 'The perfect taste for any occasion',
-    price: '$50 – $200',
+    price: 50.00,
+    priceLabel: 'From $50.00',
     image: '/images/gift-card.png',
-    btnLabel: 'SELECT VALUE',
+    btnLabel: 'ADD TO CART',
   },
 ];
 
 export default function ShopPage() {
+  const { addItem } = useCart();
   const [activeCategory, setActiveCategory] = useState('All');
   const [sortBy, setSortBy] = useState('Popular');
   const [wishlist, setWishlist] = useState<number[]>([]);
@@ -57,6 +63,16 @@ export default function ShopPage() {
 
   const toggleWishlist = (id: number) => {
     setWishlist(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  };
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      desc: product.desc,
+      price: product.price,
+      image: product.image,
+    });
   };
 
   return (
@@ -136,8 +152,13 @@ export default function ShopPage() {
                 <div className="product-card__body">
                   <h3 className="product-card__name">{product.name}</h3>
                   <p className="product-card__desc">{product.desc}</p>
-                  <span className="product-card__price">{product.price}</span>
-                  <button className="product-card__btn">{product.btnLabel}</button>
+                  <span className="product-card__price">{product.priceLabel}</span>
+                  <button 
+                    className="product-card__btn"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    {product.btnLabel}
+                  </button>
                 </div>
               </div>
             ))}
