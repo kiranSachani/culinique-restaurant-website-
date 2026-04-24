@@ -268,3 +268,27 @@
     gap: 16px;
   }
 }
+
+@media (max-width: 480px) {
+  .artisans__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .stats__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-hero__title {
+    font-size: 28px;
+  }
+  
+  .journey__title, .values__title, .artisans__title {
+    font-size: 32px;
+  }
+  
+  .journey__image img {
+    height: 250px;
+  }
+}
