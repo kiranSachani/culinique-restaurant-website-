@@ -57,9 +57,16 @@ export default function ShopPage() {
   const [sortBy, setSortBy] = useState('Popular');
   const [wishlist, setWishlist] = useState<number[]>([]);
 
-  const filtered = activeCategory === 'All'
-    ? products
+  let filtered = activeCategory === 'All'
+    ? [...products]
     : products.filter(p => p.category === activeCategory);
+
+  filtered.sort((a, b) => {
+    if (sortBy === 'Price: Low to High') return a.price - b.price;
+    if (sortBy === 'Price: High to Low') return b.price - a.price;
+    if (sortBy === 'Newest') return b.id - a.id;
+    return 0;
+  });
 
   const toggleWishlist = (id: number) => {
     setWishlist(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
