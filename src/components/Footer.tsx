@@ -14,6 +14,7 @@ export default function Footer() {
             <Link href="/about">About</Link>
             <Link href="/shop">Shop</Link>
             <Link href="/cart">Cart</Link>
+            <Link href="/reservation">Reservation</Link>
           </div>
           <div className="footer__legal-row">
             <a href="#">Privacy Policy</a>

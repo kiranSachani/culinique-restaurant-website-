@@ -35,6 +35,7 @@ export default function Navbar() {
     { href: '/menu', label: 'The Menu' },
     { href: '/about', label: 'About' },
     { href: '/shop', label: 'Shop' },
+    { href: '/reservation', label: 'Reservation' },
   ];
 
   const transparent = (isHome || isAbout) && !scrolled;
